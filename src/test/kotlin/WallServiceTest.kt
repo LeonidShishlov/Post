@@ -241,7 +241,7 @@ class WallServiceTest {
         service.add(post3)
 
         val update = Post(
-            id = 2,
+            id = 6,
             ownerId = 666,
             fromId = 111,
             createdBy = 5656,
