@@ -1,5 +1,16 @@
 class WallService {
     private var posts = emptyArray<Post>()
+    private var comments = emptyArray<Comment>()
+
+    fun createComment(comment: Comment): Boolean {
+        for (postForSearch in posts) {
+            if (comment.postId == postForSearch.id) {
+                comments +=comment
+                return true
+            }
+        }
+        throw PostNotFoundException ("Поста с таким ID нет${comment.postId}")
+    }
 
     fun add(post: Post): Post {
         val changeId = if (posts.isNotEmpty()) posts.last().id + 1 else 1

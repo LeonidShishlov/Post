@@ -4,6 +4,129 @@ import org.junit.Assert.*
 
 class WallServiceTest {
 
+    @Test(expected = PostNotFoundException::class)
+    fun createCommentException() {
+        val service = WallService()
+        val post = Post(
+                id = 1,
+                ownerId = 666,
+                fromId = 111,
+                createdBy = 5656,
+                date = 12042022,
+                text = "Sun shine and it is OK",
+                replyOwnerId = 7890,
+                replyPostId = 2346,
+                friendsOnly = false,
+                comments = Comments(count = 18, canPost = true, groupsCanPost = false, canClose = true, canOpen = true),
+                copyright = Copyright(id = 3131, link = "www.ff.com", name = "site", type = "doc" ),
+                likes = Likes(count = 25, userLike =  true, canLike = false, canPublish = true),
+                reposts = Reposts(count = 3, userReposted = true),
+                viewsCount = 15,
+                postType = PostType.POST,
+                postSource = null,
+                geo = null,
+                singerId = 8965,
+                copyHistory = null,
+                canPin = true,
+                canDelete = true,
+                canEdit = true,
+                isPinned = true,
+                markedAsAds = false,
+                isFavorite = true,
+                donut = Donut(isDonut = true, paidDuration = 897, canPublishFreeCopy = false, editMode = "all"),
+                postponedId = 0
+            )
+
+
+        val comment = Comment(
+            id = 44,
+            fromId = 2341234,
+            postId = 2,
+            date = 343212,
+            text = "Comment for post with id=2"
+        )
+        service.add(post)
+        service.createComment(comment)
+    }
+
+    @Test
+    fun createCommentSuccessful() {
+        val service = WallService()
+        val post = Post(
+                id = 2,
+                ownerId = 666,
+                fromId = 111,
+                createdBy = 5656,
+                date = 12042022,
+                text = "Sun shine and it is OK",
+                replyOwnerId = 7890,
+                replyPostId = 2346,
+                friendsOnly = false,
+                comments = Comments(count = 18, canPost = true, groupsCanPost = false, canClose = true, canOpen = true),
+                copyright = Copyright(id = 3131, link = "www.ff.com", name = "site", type = "doc" ),
+                likes = Likes(count = 25, userLike =  true, canLike = false, canPublish = true),
+                reposts = Reposts(count = 3, userReposted = true),
+                viewsCount = 15,
+                postType = PostType.POST,
+                postSource = null,
+                geo = null,
+                singerId = 8965,
+                copyHistory = null,
+                canPin = true,
+                canDelete = true,
+                canEdit = true,
+                isPinned = true,
+                markedAsAds = false,
+                isFavorite = true,
+                donut = Donut(isDonut = true, paidDuration = 897, canPublishFreeCopy = false, editMode = "all"),
+                postponedId = 0
+            )
+
+        val post2 = Post(
+            id = 1,
+            ownerId = 666,
+            fromId = 111,
+            createdBy = 5656,
+            date = 12042022,
+            text = "Sun shine and it is OK",
+            replyOwnerId = 7890,
+            replyPostId = 2346,
+            friendsOnly = false,
+            comments = Comments(count = 18, canPost = true, groupsCanPost = false, canClose = true, canOpen = true),
+            copyright = Copyright(id = 3131, link = "www.ff.com", name = "site", type = "doc" ),
+            likes = Likes(count = 25, userLike =  true, canLike = false, canPublish = true),
+            reposts = Reposts(count = 3, userReposted = true),
+            viewsCount = 15,
+            postType = PostType.POST,
+            postSource = null,
+            geo = null,
+            singerId = 8965,
+            copyHistory = null,
+            canPin = true,
+            canDelete = true,
+            canEdit = true,
+            isPinned = true,
+            markedAsAds = false,
+            isFavorite = true,
+            donut = Donut(isDonut = true, paidDuration = 897, canPublishFreeCopy = false, editMode = "all"),
+            postponedId = 0
+            )
+
+
+        val comment = Comment(
+            id = 44,
+            fromId = 2341234,
+            postId = 1,
+            date = 343212,
+            text = "Comment for post with id=1"
+        )
+
+        service.add(post)
+        service.add(post2)
+        val result = service.createComment(comment)
+        assertTrue(result)
+    }
+
     @Test
     fun add_PostsNotZero() {
         val service = WallService()
